@@ -1,0 +1,69 @@
+.centermake{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.makeblackdiv{
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+.logomake{
+    font-size: 72px;
+}
+.discriptionmake{
+    font-size: 24px;
+}
+.gray-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #999; /* Серый цвет текста */
+    pointer-events: none; /* Позволяет событиям проходить сквозь текст */
+    transition: opacity 0.3s; /* Плавное изменение прозрачности */
+}
+.input-container {
+    position: relative;
+    background-color: transparent;
+    color: black;
+    border: 2px solid white;
+    vertical-align: middle;
+
+
+}
+.inputname:focus + .gray-label {
+    opacity: 0; /* При фоку
+    сировке на input, серая надпись исчезнет */
+}
+.inputname{
+    color: black;
+    border: 2px solid black;
+    width: 20vw;
+    height: 3vh;
+}
+.sendform{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+.middlebuttondiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+.middlebutton{
+    padding: 0px 60px;
+    height: 60px;
+    background-color: white;
+    border: 3px solid black;
+}

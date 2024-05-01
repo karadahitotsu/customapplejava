@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html xlmns:th="http://www.thymeleaf.org">
+<head>
+    <title>main page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"  th:href="@{/css/header.css}">
+    <link rel="stylesheet"  th:href="@{/css/mainpage.css}">
+</head>
+<body>
+<header>
+    <div class="headerdiv">
+
+        <div class="headerlinks">
+            <a class="headerlink" href="/catalog">Каталог</a>
+            <a class="headerlink" href="/">О нас</a>
+            <a class="headerlink" href="/make">Покрасим ваши</a>
+            <a class="headerlink" id="login" href="/login">Войти</a>
+            <a class="headerlink" href="/cart">Корзина</a>
+        </div>
+    </div>
+</header>
+<div class="logobackground">
+    <div class="divlogo">
+        <p class="divlogobigfont">Цветные ОРИГИНАЛЬНЫЕ AirPods</p>
+        <p class="divlogosmallfont">СДЕЛАЕМ ИЗ ВАШИХ НАУШНИКОВ - ПРЕДМЕТ ИССКУСТВА</p>
+        <div>
+            <button onclick="redirectToCatalogPage()" class="divlogobuy">Купить</button>
+            <button onclick="redirectToColorPage()" class="divlogoorder">ЗАКАЗАТЬ покраску своих</button>
+        </div>
+
+    </div>
+</div>
+<div class="biglabel">
+    <p>УНИВЕРСАЛЬНОЕ ПРЕДЛОЖЕНИЕ</p>
+</div>
+<div class="center">
+    <div class="products" id="universals">
+
+
+
+
+
+    </div>
+</div>
+<div class="biglabel">
+    <p>ВЫБОР НАШИХ ДИЗАЙНЕРОВ</p>
+</div>
+<div class="center">
+    <div class="products" id="designers">
+
+    </div>
+</div>
+<div class="middlebuttondiv">
+    <button class="middlebutton" onclick="redirectToCatalogPage()"> В КАТАЛОГ</button>
+</div>
+<div class="blacklinediv">
+    <div class="blacktext">
+        <p>Не нашли нужный дизайн? Хотите преобразить свои наушники в уникальную вещь?<br>
+            Не проблема - сделаем на заказ. Пришлём макет уже сегодня.</p>
+    </div>
+    <button onclick="redirectToColorPage()" class="blackbutton">ЗАКАСТОМИТЬ СВОИ</button>
+</div>
+<div class="biglabel">
+    <p>Кто мы?</p>
+</div>
+<div class="aboutus">
+    <p>Компания "Custom Apple" , в команде профессиональные художники и дизайнеры.<br> Мастерская работает в нон-стоп режиме с 2016 года. Только лицензированная, <br> оригинальная продукция. Качественная и безопасная краска. Воплощаем в жизнь <br> любые идеи и за короткие сроки.</p>
+
+</div>
+<div class="biglabel">
+    <p>ДЛЯ БИЗНЕСА</p>
+</div>
+<div class="aboutus">
+    <p>Custom Apple сможет сделать уникальный подарок с логотипом вашей компании или бренда в крупных партиях за <br> минимальное количество времени. AirPods с дизайном вашей организации помогут внедрить новые системы <br> мотивации для сотрудников, сделать качественный подарок партнёру или крупному клиенту, а также ещё больше <br> повысить лояльность, статус и закрепить приятную ассоциацию. <br><br>
+
+        В день мы красим более 100 наушников, так что больших заказов мы не боимся.</p>
+
+</div>
+
+<script>
+    function redirectToCatalogPage() {
+    window.location.href = "catalog.html";
+}
+function redirectToColorPage(){
+    window.location.href = "make.html"
+}
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        customFetch([],'universal','universals');
+        customFetch([],'designer','designers');
+
+    })
+
+</script>
+<script src="js/iflogin.js"></script>
+<script src="js/katalog.js"></script>
+</body>
+</html>

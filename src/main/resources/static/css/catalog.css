@@ -1,0 +1,112 @@
+.products{
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+    justify-content: center;
+    margin-left: 15vw;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.productimages{
+    position: relative;
+    width: 20vw;
+    height: 30vh;
+}
+.productflex{
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+}
+.productname{
+    font-size: 16px;
+    font-weight: bold;
+    align-items: center;
+    text-align: center;
+}
+.productbuttons{
+    align-items: center;
+    text-align: center;
+}
+.classicprice{
+    font-size: 16px;
+    font-weight: 400;
+}
+.productprices{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 15px;
+}
+.thumbnail, .preview {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+    transition: opacity 0.3s ease-in-out; /* Плавное изменение прозрачности */
+}
+.thumbnail{
+    z-index: 1;
+}
+.thumbnail:hover {
+    opacity: 0; /* При наведении на миниатюру, делаем её невидимой */
+}
+.product{
+    margin-left: 3vw;
+}
+.productbuy{
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+#checkboxContainer {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: fixed;
+    top: 57px; /* Расположение от верха страницы */
+    width: 13vw; /* Ширина колонки */
+    z-index: 999; /* Поднятие над другими элементами на странице */
+}
+
+.category {
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+button.search {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Растягиваем кнопку на всю ширину блока */
+    margin-top: 10px; /* Отступ сверху от фильтров */
+}
+
+button.search:hover {
+    background-color: #d32f2f;
+}
+@media (max-width: 980px) {
+    #checkboxContainer {
+        top: 50vh;
+    }
+}

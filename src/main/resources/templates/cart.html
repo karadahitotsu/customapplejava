@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html xlmns:th="http://www.thymeleaf.org">
+<head>
+    <title>main page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"  th:href="@{/css/header.css}">
+    <link rel="stylesheet"  th:href="@{/css/cart.css}">
+</head>
+<body>
+<header>
+    <div class="headerdiv">
+
+        <div class="headerlinks">
+            <a class="headerlink" href="/catalog">Каталог</a>
+            <a class="headerlink" href="/">О нас</a>
+            <a class="headerlink" href="/make">Покрасим ваши</a>
+            <a class="headerlink" id="login" href="/login">Войти</a>
+            <a class="headerlink" href="/cart">Корзина</a>
+        </div>
+    </div>
+</header>
+<div class="cartdiv" id="cartdiv">
+    <h1>Товары в корзине</h1>
+    <div class="cart-product">
+        <p>Наименование товара</p>
+        <p>Цена</p>
+        <p>Модель</p>
+        <p>Удаление из корзины</p>
+
+    </div>
+</div>
+<script src="js/iflogin.js"></script>
+<script>
+    function loadCartData() {
+var useridvalue = getCookieValue('userId');
+fetch('http://5.39.32.179:8080/cart?usersId=' + useridvalue, {
+        method: 'GET',
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Ошибка при выполнении запроса. Статус: ' + response.status + ' ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Данные получены:', data);
+
+        var productsid = data.items;
+        const params = new URLSearchParams();
+        if (productsid && productsid.length > 0) {
+            productsid.forEach(idis => {
+                params.append('id', idis);
+            });
+        }
+
+        var container = document.getElementById("cartdiv")
+        const url = new URL('http://5.39.32.179:8080/cartproducts');
+        url.search = params.toString();
+        fetch(url, {
+                method: 'GET'
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Ответ от сервера получен', data);
+                cartgeneration(data, container);
+            })
+            .catch(error => {
+                console.error('Ошибка при отправке запроса:', error);
+            });
+    })
+    .catch(error => {
+        console.error('Произошла ошибка:', error);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+loadCartData(); // Вызов функции при загрузке страницы
+});
+        function cartgeneration(data,divid){
+            var container = divid; // Замените на ваш идентификатор контейнера
+            for (var key in data.products) {
+                var product = data.products[key];
+                console.log(product);
+                var productHTML = createProductHTML(product);
+
+                container.appendChild(productHTML);
+            }
+
+        }
+        function createProductHTML(product){
+            var productDiv = document.createElement("div");
+            productDiv.classList.add("cart-product");
+            var name = document.createElement("p")
+            name.textContent=(product.name);
+
+            var price = document.createElement("p")
+            price.textContent=(product.price+" рублей")
+            var model = document.createElement("p")
+            model.textContent=(product.model)
+            var deletebutton = document.createElement("button")
+            deletebutton.textContent = "удалить товар"
+            deletebutton.addEventListener('click',function(){
+                const param1 = getCookieValue("userId");
+                const param2 = product.id;
+                removeFromCart(param1,param2)
+
+            })
+            productDiv.appendChild(name);
+            productDiv.appendChild(price);
+            productDiv.appendChild(model);
+            productDiv.appendChild(deletebutton)
+
+            return productDiv
+        }
+
+</script>
+<script>
+    function removeFromCart(userid,productid){
+        const url = new URL('http://5.39.32.179:8080/cart?userId='+userid+"&productId="+productid)
+        fetch(url,{
+            method: 'DELETE'
+        }).then(response => {
+// Проверяем статус ответа
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+// Извлекаем содержимое ответа в формате JSON
+                    return response.json();
+                    }).then(data => {
+                         // Обработка данных, полученных в формате JSON
+
+                        console.log(data)
+                        var cartProducts = document.querySelectorAll('.cart-product');
+
+// Удаляем все элементы, начиная со второго
+for (var i = 1; i < cartProducts.length; i++) {
+cartProducts[i].parentNode.removeChild(cartProducts[i]);
+}
+loadCartData();
+                    })
+                    .catch(error => {
+// Обработка ошибок
+                        console.error('Ошибка при отправке запроса:', error);
+                    });
+
+    }
+</script>
+</body>
+</html>

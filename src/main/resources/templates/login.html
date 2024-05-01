@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xlmns:th="http://www.thymeleaf.org">
+<head>
+    <title>main page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"  th:href="@{/css/header.css}">
+    <link rel="stylesheet"  th:href="@{/css/user.css}">
+</head>
+<body>
+<header>
+    <div class="headerdiv">
+
+        <div class="headerlinks">
+            <a class="headerlink" href="/catalog">Каталог</a>
+            <a class="headerlink" href="/">О нас</a>
+            <a class="headerlink" href="/make">Покрасим ваши</a>
+            <a class="headerlink" id="login" href="/login">Войти</a>
+            <a class="headerlink" href="/cart">Корзина</a>
+        </div>
+    </div>
+</header>
+<div class="formdiv">
+    <div class="form">
+        <div class="input">
+            <label >Логин</label>
+            <input class="inputbox" type="text" id="loginn" name="login">
+        </div>
+        <div class="input">
+            <label >Пароль</label>
+            <input class="inputbox" type="password" id="password" name="password">
+        </div>
+        <button onclick="sendData()">Войти</button>
+    </div>
+    <p>Ещё не зарегистрированы? <a href="registration.html">Зарегистрируйтесь</a>.</p>
+</div>
+<script>
+    function sendData() {
+        var loginValue = document.getElementById("loginn").value;
+        var passwordValue = document.getElementById("password").value;
+        if (loginValue === "admin" && passwordValue === "admin") {
+window.location.href = "admin.html";
+}
+
+        fetch('http://5.39.32.179:8080/login?login=' + loginValue + '&password=' + passwordValue, {
+            method: 'GET',
+            // Добавление режима "no-cors" для предотвращения перенаправления
+
+        })
+            .then(response => {
+                // Если запрос не прошел успешно, генерируем ошибку
+                if (!response.ok) {
+                    throw new Error('Ошибка при выполнении запроса. Статус: ' + response.status + ' ' + response.statusText);
+                }
+                // Если ответ получен успешно, извлекаем JSON
+                return response.json();
+            })
+            .then(data => {
+                // Обработка данных, полученных в формате JSON
+                console.log('Данные получены:', data);
+                // Сохраняем данные в куки
+                if(data.error=="no user"){
+                    alert("Нет такого пользователя")
+                }
+                else{
+                    document.cookie = 'userId=' + data.id;
+                    document.cookie = 'userName=' + data.name;
+                    window.location.href = "profile.html";
+
+                }
+
+            })
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+            });
+    }
+</script>
+<script src="js/iflogin.js"></script>
+</body>
+</html>

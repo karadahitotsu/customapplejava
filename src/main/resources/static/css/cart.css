@@ -1,0 +1,30 @@
+.cartdiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.cart-product {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* Разделение на четыре колонки */
+    grid-gap: 10px; /* Пространство между элементами */
+    padding: 10px;
+    border: 1px solid #ccc; /* Границы для разделения */
+    width: 70%;
+}
+
+.cart-product p {
+    margin: 0; /* Убираем отступы у параграфов */
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #d32f2f;
+}
