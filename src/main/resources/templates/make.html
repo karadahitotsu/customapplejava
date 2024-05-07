@@ -7,17 +7,24 @@
     <link rel="stylesheet"  th:href="@{/css/header.css}">
     <link rel="stylesheet"  th:href="@{/css/make.css}">
     <link rel="stylesheet"  th:href="@{/css/phone.css}">
+    <link th:href="@{/css/foundation.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/twentytwenty-no-compass.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <header>
     <div class="headerdiv">
 
         <div class="headerlinks">
+            <a class="headerlink" href="/">
+                <img th:src="@{/img/header.png}">
+            </a>
             <a class="headerlink" href="/catalog">Каталог</a>
-            <a class="headerlink" href="/">О нас</a>
+
             <a class="headerlink" href="/make">Покрасим ваши</a>
             <a class="headerlink" id="login" href="/login">Войти</a>
-            <a class="headerlink" href="/cart">Корзина</a>
+            <a class="headerlink" id="cart" href="/cart">Корзина</a>
+            <a class="headerlink" href="/btob">B2B</a>
+            <a class="headerlink" href="/galery">Галлерея</a>
         </div>
     </div>
 </header>
@@ -29,8 +36,8 @@
 <div class="centermake">
     <div class="large-8 columns">
         <div class="twentytwenty-container">
-            <img src="images/beforeapple.jpeg" />
-            <img src="images/afterapple.png" />
+            <img th:src="@{/img/beforeapple.jpeg}" />
+            <img th:src="@{/img/afterapple.png}" />
         </div>
     </div>
 </div>
@@ -50,21 +57,60 @@
     <button class="middlebutton" > Отправить заявку</button>
 </div>
 
+<div class="linediv">
+<div class="linetext">
+    <p>Наушники уже сильно затёрлись? Появилась грязь,<br>
+        которую сложно оттереть? Хочешь новые?<br>
+        В таком случае рады сообщить, что в нашей студии вы<br>
+        можете покрасить СВОИ наушники<br>
+        Мы способны воплотить в жизнь ЛЮБОЙ дизайн,<br>
+        оставь свой номер и мы обсудим твою идею<br>
+        Оставляя свой номер - ты автоматически даришь<br>
+        улыбку нашим менеджерам :)<br>
+    </p>
 </div>
+</div>
+<footer>
+    <div class="footerdiv">
+        <div class="footermain">
+            <h1>Контакты</h1>
+        </div>
+        <div class="footercontacts">
+            <div class="marginleft">
+                <p>Телефон</p>
+                <p class="phonea">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>WhatsApp:</p>
+                <p class="whatsuppa">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>Telegram:</p>
+                <p>@custompods - Менеджер</p>
+                <p>https://t.me/customapplepods - Наш канал</p>
+            </div>
+        </div>
+    </div>
+
+
+
+</footer>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script src="js/jquery.event.move.js"></script>
-<script src="js/jquery.twentytwenty.js"></script>
+<script th:src="@{/js/jquery.event.move.js}"></script>
+<script th:src="@{/js/jquery.twentytwenty.js}"></script>
 <script>
     $(window).load(function(){
       $(".twentytwenty-container[data-orientation!='vertical']").twentytwenty({default_offset_pct: 0.7});
 
     });
 </script>
-<script src="js/telephone.js"></script>
-<script src="js/iflogin.js"></script>
+
+<script th:src="@{/js/iflogin.js}"></script>
+<script th:src="@{/js/telephone.js}"></script>
 
 
 <script>
+
     const input = document.querySelector("#telephoneinput");
     window.intlTelInput(input, {
       initialCountry: "auto",

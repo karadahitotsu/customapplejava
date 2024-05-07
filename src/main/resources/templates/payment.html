@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html xlmns:th="http://www.thymeleaf.org">
+<head>
+  <title>main page</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet"  th:href="@{/css/header.css}">
+  <link rel = "stylesheet" th:href="@{/css/payment.css}">
+</head>
+<body>
+<header>
+  <div class="headerdiv">
+
+    <div class="headerlinks">
+      <a class="headerlink" href="/">
+        <img th:src="@{/img/header.png}">
+      </a>
+      <a class="headerlink" href="/catalog">Каталог</a>
+
+      <a class="headerlink" href="/make">Покрасим ваши</a>
+      <a class="headerlink" id="login" href="/login">Войти</a>
+      <a class="headerlink" id="cart" href="/cart">Корзина</a>
+      <a class="headerlink" href="/btob">B2B</a>
+      <a class="headerlink" href="/galery">Галлерея</a>
+    </div>
+  </div>
+</header>
+<div class="flex-next">
+  <h1 th:text="${summa}"></h1>
+</div>
+
+<section class="gradient-custom">
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center py-5">
+      <div class="col-md-7 col-lg-5 col-xl-4">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body p-4">
+            <form>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div data-mdb-input-init class="form-outline">
+                  <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                         placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
+                  <label class="form-label" for="typeText">Номер карты</label>
+                </div>
+
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <div data-mdb-input-init class="form-outline">
+                  <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                         placeholder="Имя владельца карты" />
+                  <label class="form-label" for="typeName">Имя владельца карты</label>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center pb-2">
+                <div data-mdb-input-init class="form-outline">
+                  <input type="text" id="typeExp" class="form-control form-control-lg" placeholder="MM/YYYY"
+                         size="7" minlength="7" maxlength="7" />
+                  <label class="form-label" for="typeExp">Дата</label>
+                </div>
+                <div data-mdb-input-init class="form-outline">
+                  <input type="password" id="typeText2" class="form-control form-control-lg"
+                         placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
+                  <label class="form-label" for="typeText2">Csv</label>
+                </div>
+                <button type="button" onclick="Pay()" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-lg btn-rounded">
+                  Оплатить
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footerdiv">
+    <div class="footermain">
+      <h1>Контакты</h1>
+    </div>
+    <div class="footercontacts">
+      <div class="marginleft">
+        <p>Телефон</p>
+        <p class="phonea">+7 993 604-29-74</p>
+      </div>
+      <div class="marginleft">
+        <p>WhatsApp:</p>
+        <p class="whatsuppa">+7 993 604-29-74</p>
+      </div>
+      <div class="marginleft">
+        <p>Telegram:</p>
+        <p>@custompods - Менеджер</p>
+        <p>https://t.me/customapplepods - Наш канал</p>
+      </div>
+    </div>
+  </div>
+
+
+
+</footer>
+<script th:src="@{/js/iflogin.js}"></script>
+<script>
+  function Pay(){
+
+  var number = document.getElementById("typeText").value;
+  var date = document.getElementById("typeExp").value;
+  var csv = document.getElementById("typeText2").value;
+
+  const data = {
+            "cardnumber": number,
+            "csv": csv,
+            "endDate":date
+        };
+            const jsonData = JSON.stringify(data);
+
+
+
+
+        fetch('/api/payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonData
+        })
+            .then(response => {
+                // Check for successful response
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`); // Handle non-2xx response
+                }
+                return response.json(); // Parse JSON response
+            })
+
+
+
+
+
+
+
+            .catch(error => {
+                console.error("Error:", error);
+                // Handle errors (network, parsing, etc.)
+            });
+    }
+
+
+</script>
+
+</body>
+</html>

@@ -5,18 +5,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet"  th:href="@{/css/header.css}">
-    <link rel="stylesheet"  th:href="@{/css/catalog.css}">
+    <link rel="stylesheet"  th:href="@{/css/user.css}">
+
 </head>
 <body>
 <header>
     <div class="headerdiv">
 
         <div class="headerlinks">
+            <a class="headerlink" href="/">
+                <img th:src="@{/img/header.png}">
+            </a>
             <a class="headerlink" href="/catalog">Каталог</a>
-            <a class="headerlink" href="/">О нас</a>
+
             <a class="headerlink" href="/make">Покрасим ваши</a>
             <a class="headerlink" id="login" href="/login">Войти</a>
-            <a class="headerlink" href="/cart">Корзина</a>
+            <a class="headerlink" id="cart" href="/cart">Корзина</a>
+            <a class="headerlink" href="/btob">B2B</a>
+            <a class="headerlink" href="/galery">Галлерея</a>
         </div>
     </div>
 </header>
@@ -36,8 +42,33 @@
         </div>
         <button onclick="sendData()">Зарегистрироваться</button>
     </div>
-    <p>Уже зарегистрированы? <a href="login.html">Войдите</a>.</p>
+    <p>Уже зарегистрированы? <a href="/login">Войдите</a>.</p>
 </div>
+<footer>
+    <div class="footerdiv">
+        <div class="footermain">
+            <h1>Контакты</h1>
+        </div>
+        <div class="footercontacts">
+            <div class="marginleft">
+                <p>Телефон</p>
+                <p class="phonea">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>WhatsApp:</p>
+                <p class="whatsuppa">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>Telegram:</p>
+                <p>@custompods - Менеджер</p>
+                <p>https://t.me/customapplepods - Наш канал</p>
+            </div>
+        </div>
+    </div>
+
+
+
+</footer>
 <script>
     function sendData() {
 var loginValue = document.getElementById("loginn").value;
@@ -48,32 +79,27 @@ if (confirmPassword !== passwordValue || passwordValue.length < 6 || loginValue.
 alert("Пароли не совпадают или логин/пароль меньше 6 символов");
 return;
 }
+        const data = {
+            "login": loginValue,
+            "password": passwordValue
+        };
+        const jsonData = JSON.stringify(data);
 
-var url = 'http://5.39.32.179:8080/registration' + '?login=' + encodeURIComponent(loginValue) + '&password=' + encodeURIComponent(passwordValue);
-console.log(url);
 
-fetch(url, {
-method: 'POST',
-headers: {
-    'Content-Type': 'application/json'
-},
+        fetch('/api/createuser', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonData
+        })
+            .then(response => {
 
-})
-.then(response => {
-if (!response.ok) {
-    throw new Error('Ошибка сети');
-}
-return response.json();
-})
-.then(data => {
-window.location.href = "login.html"
-})
-.catch(error => {
-console.error('Произошла ошибка:', error);
-alert('Ошибка при выполнении запроса.');
-});
+                location.href = "/login";
+            })
+            .catch(error => {
+                // Обработать ошибку
+            });
 }
 </script>
-<script src="js/iflogin.js"></script>
+<script th:src="@{/js/iflogin.js}"></script>
 </body>
 </html>

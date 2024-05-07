@@ -28,3 +28,7 @@ button {
 button:hover {
     background-color: #d32f2f;
 }
+.flex-next{
+    display: flex;
+    justify-content: center;
+}

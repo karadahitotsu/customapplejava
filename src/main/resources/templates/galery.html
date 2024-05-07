@@ -12,14 +12,115 @@
     <div class="headerdiv">
 
         <div class="headerlinks">
+            <a class="headerlink" href="/">
+                <img th:src="@{/img/header.png}">
+            </a>
             <a class="headerlink" href="/catalog">Каталог</a>
-            <a class="headerlink" href="/">О нас</a>
+
             <a class="headerlink" href="/make">Покрасим ваши</a>
             <a class="headerlink" id="login" href="/login">Войти</a>
-            <a class="headerlink" href="/cart">Корзина</a>
+            <a class="headerlink" id="cart" href="/cart">Корзина</a>
+            <a class="headerlink" href="/btob">B2B</a>
+            <a class="headerlink" href="/galery">Галлерея</a>
         </div>
     </div>
 </header>
-<script src="js/iflogin.js"></script>
+<div class="container">
+
+    <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Примеры наших работ</h1>
+
+    <hr class="mt-2 mb-5">
+
+    <div class="row text-center text-lg-start">
+
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1692.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1693.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1695.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1697.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1703.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1704.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1705.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1706.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1710.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1713.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1715.png}" alt="">
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6">
+            <a class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" th:src="@{/img/1717.png}" alt="">
+            </a>
+        </div>
+    </div>
+
+</div>
+<footer>
+    <div class="footerdiv">
+        <div class="footermain">
+            <h1>Контакты</h1>
+        </div>
+        <div class="footercontacts">
+            <div class="marginleft">
+                <p>Телефон</p>
+                <p class="phonea">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>WhatsApp:</p>
+                <p class="whatsuppa">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>Telegram:</p>
+                <p>@custompods - Менеджер</p>
+                <p>https://t.me/customapplepods - Наш канал</p>
+            </div>
+        </div>
+    </div>
+
+
+
+</footer>
+<script th:src="@{/js/iflogin.js}"></script>
 </body>
 </html>

@@ -12,20 +12,51 @@
     <div class="headerdiv">
 
         <div class="headerlinks">
+            <a class="headerlink" href="/">
+                <img th:src="@{/img/header.png}">
+            </a>
             <a class="headerlink" href="/catalog">Каталог</a>
-            <a class="headerlink" href="/">О нас</a>
+
             <a class="headerlink" href="/make">Покрасим ваши</a>
             <a class="headerlink" id="login" href="/login">Войти</a>
-            <a class="headerlink" href="/cart">Корзина</a>
+            <a class="headerlink" id="cart" href="/cart">Корзина</a>
+            <a class="headerlink" href="/btob">B2B</a>
+            <a class="headerlink" href="/galery">Галлерея</a>
         </div>
     </div>
 </header>
 <div class="columnstyle">
     <h1 id="hello">Добро пожаловать</h1>
+    <h1 th:text="${login}"></h1>
 
-    <a class="gotocart" href="cart.html">Перейти в корзину</a>
+    <a id="gotocart" class="gotocart" href="/cart">Перейти в корзину</a>
     <button onclick="deleteAllCookies()">Выйти</button>
 </div>
+<footer>
+    <div class="footerdiv">
+        <div class="footermain">
+            <h1>Контакты</h1>
+        </div>
+        <div class="footercontacts">
+            <div class="marginleft">
+                <p>Телефон</p>
+                <p class="phonea">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>WhatsApp:</p>
+                <p class="whatsuppa">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>Telegram:</p>
+                <p>@custompods - Менеджер</p>
+                <p>https://t.me/customapplepods - Наш канал</p>
+            </div>
+        </div>
+    </div>
+
+
+
+</footer>
 <script>
     function deleteAllCookies() {
 var cookies = document.cookie.split(";");
@@ -36,21 +67,17 @@ var eqPos = cookie.indexOf("=");
 var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
 document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
 }
-window.location.href = "login.html";
+window.location.href = "/login";
 }
 </script>
-<script src="js/iflogin.js"></script>
+<script th:src="@{/js/iflogin.js}"></script>
 <script>
-    window.onload = function() {
-// Получаем элемент <h1>
-let welcomeHeader = document.getElementById("hello");
+    document.addEventListener('DOMContentLoaded', function() {
+        var gotocart = document.getElementById("gotocart");
+        gotocart.href="/cart?id="+getCookieValue('userId');
+        // Ваши скрипты здесь
+    });
 
-// Получаем имя пользователя из куки
-let userName = getCookieValue("userName");
-
-// Добавляем пробел и имя пользователя к заголовку <h1>
-welcomeHeader.textContent += ' ' + userName;
-};
 </script>
 </body>
 </html>

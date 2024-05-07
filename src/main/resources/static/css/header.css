@@ -39,3 +39,22 @@ a {
     }
 
 }
+.footerdiv{
+display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:#1f2029;
+    color: white;
+    }
+.footercontacts{
+display:flex;
+}
+.marginleft{
+margin-left: 200px;
+}
+.phonea{
+color: rgb(247, 247, 113);
+}
+.whatsuppa{
+color: rgb(60, 240, 105);
+}

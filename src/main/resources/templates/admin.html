@@ -8,9 +8,11 @@
 </head>
 <body>
 <h1>Добавить новый продукт</h1>
-<form id="addProductForm" enctype="multipart/form-data">
+
     <label for="name">Наименование:</label>
     <input type="text" id="name" name="name"><br><br>
+    <label for="description">Описание:</label>
+    <input type="text" id="description" name="description"><br><br>
 
     <label for="price">Цена:</label>
     <input type="text" id="price" name="price"><br><br>
@@ -23,11 +25,11 @@
 
     <label for="model">Модель:</label>
     <select id="model" name="model">
-        <option value="airpods 1">AirPods 1</option>
-        <option value="airpods 2">AirPods 2</option>
-        <option value="airpods 3">AirPods 3</option>
-        <option value="airpods pro 1">AirPods Pro 1</option>
-        <option value="airpods pro 2">AirPods Pro 2</option>
+        <option value="airpods1">AirPods 1</option>
+        <option value="airpods2">AirPods 2</option>
+        <option value="airpods3">AirPods 3</option>
+        <option value="airpodspro1">AirPods Pro 1</option>
+        <option value="airpodspro2">AirPods Pro 2</option>
     </select><br><br>
     <label for="category">Категория:</label>
     <select id="category" name="category">
@@ -36,32 +38,41 @@
         <option value="designer">designer</option>
     </select><br><br>
 
-    <input type="submit" value="Добавить продукт">
-</form>
+    <input id="send-button" type="submit" value="Добавить продукт">
+
 
 <script>
-    $(document).ready(function(){
-        $('#addProductForm').submit(function(e){
-            e.preventDefault();
-            var formData = new FormData(this);
-
-            $.ajax({
-                url: 'http://5.39.32.179:8080/katalog',
-                type: 'POST',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response){
-                    alert('Product added successfully!');
-                    // Дополнительные действия при успешном добавлении продукта
-                },
-                error: function(xhr, status, error){
-                    alert('Failed to add product: ' + error); // Используем параметр error для вывода точного сообщения об ошибке
-                }
-            });
-        });
+const sendButton = document.getElementById("send-button")
+sendButton.addEventListener("click",async ()=>{
+    const formData = new FormData();
+    const file = document.getElementById("image");
+    formData.append("file",file.files[0]);
+    const preview = document.getElementById("imagePreview");
+    formData.append("previewFile",preview.files[0]);
+    const name = document.getElementById("name");
+    formData.append("name",name.value);
+    const description = document.getElementById("description");
+    formData.append("description",description.value);
+    const category = document.getElementById("category");
+    formData.append("category",category.value);
+    const price = document.getElementById("price");
+    formData.append("price",price.value);
+    const model = document.getElementById("model");
+    formData.append("model",model.value);
+    const response = await fetch("/api/image/catalog", {
+        method: "POST",
+        body: formData,
     });
+    if (response.ok) {
+        console.log(formData.model);
+        //location.href = "/profile?userid="+userId;
+        // ...
+    } else {
+        // Обработайте ошибку загрузки
+        // ...
+    }
+
+});
 </script>
 </body>
 </html>

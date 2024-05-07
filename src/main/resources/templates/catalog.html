@@ -12,11 +12,16 @@
     <div class="headerdiv">
 
         <div class="headerlinks">
+            <a class="headerlink" href="/">
+                <img th:src="@{/img/header.png}">
+            </a>
             <a class="headerlink" href="/catalog">Каталог</a>
-            <a class="headerlink" href="/">О нас</a>
+
             <a class="headerlink" href="/make">Покрасим ваши</a>
             <a class="headerlink" id="login" href="/login">Войти</a>
-            <a class="headerlink" href="/cart">Корзина</a>
+            <a class="headerlink" id="cart" href="/cart">Корзина</a>
+            <a class="headerlink" href="/btob">B2B</a>
+            <a class="headerlink" href="/galery">Галлерея</a>
         </div>
     </div>
 </header>
@@ -24,39 +29,130 @@
 
 <div id="checkboxContainer">
     <div class="category">
-        <input type="checkbox" id="airpods 1" name="airpods 1" onchange="handleCheckboxChange(this)">
+        <input type="checkbox" id="airpods 1" value="airpods1" name="airpods 1" onchange="handleCheckboxChange(this)">
         <label for="airpods 1">airpods 1</label><br>
     </div>
     <div class="category">
-        <input type="checkbox" id="airpods 2" name="airpods 2" onchange="handleCheckboxChange(this)">
+        <input type="checkbox" id="airpods 2" value="airpods2" name="airpods 2" onchange="handleCheckboxChange(this)">
         <label for="airpods 2">airpods 2</label><br>
     </div>
     <div class="category">
-        <input type="checkbox" id="airpods 3" name="airpods 3" onchange="handleCheckboxChange(this)">
+        <input type="checkbox" id="airpods 3" value="airpods3" name="airpods 3" onchange="handleCheckboxChange(this)">
         <label for="airpods 3">airpods 3</label><br>
     </div>
     <div class="category">
-        <input type="checkbox" id="airpods pro 1" name="airpods pro 1" onchange="handleCheckboxChange(this)">
+        <input type="checkbox" id="airpods pro 1" value="airpodspro1" name="airpods pro 1" onchange="handleCheckboxChange(this)">
         <label for="airpods pro 1">airpods pro 1</label><br>
     </div>
     <div class="category">
-        <input type="checkbox" id="airpods pro 2" name="airpods pro 2" onchange="handleCheckboxChange(this)">
+        <input type="checkbox" id="airpods pro 2" value="airpodspro2" name="airpods pro 2" onchange="handleCheckboxChange(this)">
         <label for="airpods pro 2">airpods pro 2</label><br>
     </div>
-    <button class="search" id="searchbutton" onclick="customFetch(selectedItems,'none','products')"> search</button>
+    <button class="search" id="searchbutton" onclick="search()"> search</button>
 </div>
 <div class="products" id="products">
-
+    <div th:each="product: ${products}" class="product">
+        <a th:href="@{'/product?productid='+${product.id}}">
+            <div class="productimages">
+                <img th:src="@{'/images/products/'+${product.imagePath}}" class="thumbnail">
+                <img th:src="@{'/images/products/'+${product.previewPath}}" class="preview">
+            </div>
+        </a>
+        <div class="productflex">
+            <div class="productname">
+                <p th:text="${product.name}"></p>
+            </div>
+            <div class="productprices">
+                <p th:text="${product.price}"></p>
+            </div>
+            <div class="productbuttons">
+                <button class="productbuy" th:attr="onclick=|addCart(${product.id})|">В корзину</button>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="flex-next">
+<button style="width: 50vw" class="search" id="nextpage" onclick="nextpage()"> следующая страница</button>
+</div>
+<footer>
+    <div class="footerdiv">
+        <div class="footermain">
+            <h1>Контакты</h1>
+        </div>
+        <div class="footercontacts">
+            <div class="marginleft">
+                <p>Телефон</p>
+                <p class="phonea">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>WhatsApp:</p>
+                <p class="whatsuppa">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>Telegram:</p>
+                <p>@custompods - Менеджер</p>
+                <p>https://t.me/customapplepods - Наш канал</p>
+            </div>
+        </div>
+    </div>
 
+
+
+</footer>
+<script>
+    function nextpage() {
+        // Преобразуем текущий URL из строки в объект URL
+        let url = new URL(window.location.href);
+
+        // Пытаемся получить параметр 'page' из URL
+        let currentPage = parseInt(url.searchParams.get("page"));
+
+        // Проверяем, есть ли параметр 'page'
+        if (isNaN(currentPage)) {
+            // Если параметра 'page' нет, устанавливаем его равным 2
+            url.searchParams.set("page", 2);
+        } else {
+            // Если параметр 'page' есть, увеличиваем его на 1
+            url.searchParams.set("page", currentPage + 1);
+        }
+
+        // Обновляем URL в адресной строке без перезагрузки страницы
+        window.location.href = url.href;
+
+        //window.history.pushState({}, '', url);
+        console.log(url);
+    }
+</script>
+<script>
+    function search(){
+        let hreeef = "/catalog";
+        if (selectedItems.length===0){
+
+        }
+        else {
+            hreeef+="?category=";
+            for (let i =0;i<selectedItems.length;i++){
+                if (i==0){
+                    hreeef+=selectedItems[0];
+                }
+                else {
+                    hreeef+="pon";
+                    hreeef+=selectedItems[i];
+                }
+            }
+            window.location.href = hreeef;
+
+        }
+    }
+</script>
 <script>
     let selectedItems = [];
 
     function handleCheckboxChange(checkbox) {
         if (checkbox.checked) {
-            selectedItems.push(checkbox.id);
+            selectedItems.push(checkbox.value);
         } else {
-            const index = selectedItems.indexOf(checkbox.id);
+            const index = selectedItems.indexOf(checkbox.value);
             if (index > -1) {
                 selectedItems.splice(index, 1);
             }
@@ -66,16 +162,33 @@
         console.log("Выбранные элементы:", selectedItems);
     }
 </script>
-<script src="js/iflogin.js"></script>
-
+<script th:src="@{/js/iflogin.js}"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        customFetch(selectedItems,'none','products')
-    })
+    function addCart(productId){
+        var userId = getCookieValue('userId');
+        if(userId===""){
+            alert("войдите в аккаунт")
+            return ;
+        }
 
+
+        const formData = new FormData();
+        formData.append("userid",userId);
+        formData.append("productid",productId);
+        const response = fetch("/api/cart/add",{
+            method: "POST",
+            body: formData,
+        });
+        if (response.ok) {
+            alert("Продукт добавлен в корзину")
+        } else {
+
+        }
+    }
 </script>
 
 
-<script src="js/katalog.js"></script>
+
+
 </body>
 </html>

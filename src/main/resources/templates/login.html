@@ -12,11 +12,16 @@
     <div class="headerdiv">
 
         <div class="headerlinks">
+            <a class="headerlink" href="/">
+                <img th:src="@{/img/header.png}">
+            </a>
             <a class="headerlink" href="/catalog">Каталог</a>
-            <a class="headerlink" href="/">О нас</a>
+
             <a class="headerlink" href="/make">Покрасим ваши</a>
             <a class="headerlink" id="login" href="/login">Войти</a>
-            <a class="headerlink" href="/cart">Корзина</a>
+            <a class="headerlink" id="cart" href="/cart">Корзина</a>
+            <a class="headerlink" href="/btob">B2B</a>
+            <a class="headerlink" href="/galery">Галлерея</a>
         </div>
     </div>
 </header>
@@ -32,49 +37,89 @@
         </div>
         <button onclick="sendData()">Войти</button>
     </div>
-    <p>Ещё не зарегистрированы? <a href="registration.html">Зарегистрируйтесь</a>.</p>
+    <p>Ещё не зарегистрированы? <a href="/registration">Зарегистрируйтесь</a>.</p>
 </div>
+<footer>
+    <div class="footerdiv">
+        <div class="footermain">
+            <h1>Контакты</h1>
+        </div>
+        <div class="footercontacts">
+            <div class="marginleft">
+                <p>Телефон</p>
+                <p class="phonea">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>WhatsApp:</p>
+                <p class="whatsuppa">+7 993 604-29-74</p>
+            </div>
+            <div class="marginleft">
+                <p>Telegram:</p>
+                <p>@custompods - Менеджер</p>
+                <p>https://t.me/customapplepods - Наш канал</p>
+            </div>
+        </div>
+    </div>
+
+
+
+</footer>
 <script>
     function sendData() {
         var loginValue = document.getElementById("loginn").value;
         var passwordValue = document.getElementById("password").value;
         if (loginValue === "admin" && passwordValue === "admin") {
-window.location.href = "admin.html";
-}
+            window.location.href = "/admin";
+            return;
+        }
+        const data = {
+            "login": loginValue,
+            "password": passwordValue
+        };
+            const jsonData = JSON.stringify(data);
 
-        fetch('http://5.39.32.179:8080/login?login=' + loginValue + '&password=' + passwordValue, {
-            method: 'GET',
-            // Добавление режима "no-cors" для предотвращения перенаправления
 
+
+
+        fetch('/api/loginuser', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonData
         })
             .then(response => {
-                // Если запрос не прошел успешно, генерируем ошибку
+                // Check for successful response
                 if (!response.ok) {
-                    throw new Error('Ошибка при выполнении запроса. Статус: ' + response.status + ' ' + response.statusText);
+                    throw new Error(`Error: ${response.statusText}`); // Handle non-2xx response
                 }
-                // Если ответ получен успешно, извлекаем JSON
-                return response.json();
+                return response.json(); // Parse JSON response
             })
             .then(data => {
-                // Обработка данных, полученных в формате JSON
-                console.log('Данные получены:', data);
-                // Сохраняем данные в куки
-                if(data.error=="no user"){
-                    alert("Нет такого пользователя")
-                }
-                else{
-                    document.cookie = 'userId=' + data.id;
-                    document.cookie = 'userName=' + data.name;
-                    window.location.href = "profile.html";
+                console.log(data.userid)
+                console.log(data)
+                const userId = data.userid;
+                if(userId){
+                document.cookie = `userId=${userId}; path=/; max-age=Infinity`;
+
+                // Redirect to the homepage
+                location.href = "/";
 
                 }
+                else{
+                alert("Пользователь не найден")
+
+                }
+
+
+
+
 
             })
             .catch(error => {
-                console.error('Произошла ошибка:', error);
+                console.error("Error:", error);
+                // Handle errors (network, parsing, etc.)
             });
     }
 </script>
-<script src="js/iflogin.js"></script>
+<script th:src="@{/js/iflogin.js}"></script>
 </body>
 </html>
