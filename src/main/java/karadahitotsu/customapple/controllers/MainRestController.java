@@ -1,6 +1,6 @@
 package karadahitotsu.customapple.controllers;
 
-import karadahitotsu.customapple.Repository.PaymentRepository;
+import karadahitotsu.customapple.repository.PaymentRepository;
 import karadahitotsu.customapple.entity.Cart;
 import karadahitotsu.customapple.entity.Payment;
 import karadahitotsu.customapple.entity.Products;
@@ -39,18 +39,29 @@ public class MainRestController {
     @PostMapping("/api/createuser")
     public String createUser(@RequestBody Users user) {
         System.out.println(user.getLogin());
+        user.setPhoto("default.png");
         usersRepository.save(user);
         return "user";
 
     }
     @PostMapping("/api/cart/add")
     public void addCart(@RequestParam("userid") Long userid, @RequestParam("productid") Long productid){
-        Cart cart = new Cart();
-        Users users = usersRepository.getReferenceById(userid);
-        Products products = productsRepository.getReferenceById(productid);
-        cart.setProductid(products);
-        cart.setUserid(users);
-        cartRepository.save(cart);
+        Users user = usersRepository.getReferenceById(userid);
+        Products product = productsRepository.getReferenceById(productid);
+        List<Cart> carts = cartRepository.findByUseridAndProductid(user,product);
+        if(!carts.isEmpty()){
+            Cart cart = carts.get(0);
+            cart.setCount(cart.getCount()+1);
+
+            cartRepository.save(cart);
+        }
+        else{
+            Cart cart = new Cart();
+            cart.setCount(1);
+            cart.setProductid(product);
+            cart.setUserid(user);
+            cartRepository.save(cart);
+        }
     }
     @PostMapping("/api/cart/delete")
     public void deleteCart(@RequestParam("cartid")Long cartid){
@@ -93,9 +104,35 @@ public class MainRestController {
         productsRepository.save(product);
 
     }
+    @PostMapping("/api/image/profile")
+    public void uploadImageProfile(@RequestParam("file") MultipartFile file, @RequestParam("userId") Long userId) throws IOException {
+        // Сохранить файл
+        String filePath = saveImageProfile(file);
+
+        // Сохранить путь к файлу в базе данных
+        Users user = usersRepository.findById(userId).orElseThrow();
+        user.setPhoto(filePath);
+        usersRepository.save(user);
+    }
     private String saveImageCatalog(MultipartFile file) throws IOException {
         String fileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename();
         String filePath = environment.getProperty("image.storage.path")+"products/" + fileName;
+
+
+        try (InputStream inputStream = file.getInputStream();
+             OutputStream outputStream = new FileOutputStream(filePath)) {
+            byte[] bytes = new byte[1024];
+            int read;
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
+
+        return fileName;
+    }
+    private String saveImageProfile(MultipartFile file) throws IOException {
+        String fileName = UUID.randomUUID().toString() + "." + file.getOriginalFilename();
+        String filePath = environment.getProperty("image.storage.path")+"avatars/" + fileName;
 
 
         try (InputStream inputStream = file.getInputStream();

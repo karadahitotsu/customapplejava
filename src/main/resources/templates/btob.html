@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xlmns:th="http://www.thymeleaf.org">
 <head>
-    <title>main page</title>
+    <title>B2B</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet"  th:href="@{/css/header.css}">
@@ -25,21 +25,25 @@
             <a class="headerlink" id="login" href="/login">Войти</a>
             <a class="headerlink" id="cart" href="/cart">Корзина</a>
             <a class="headerlink" href="/btob">B2B</a>
-            <a class="headerlink" href="/galery">Галлерея</a>
+            <a class="headerlink" href="/galery">Галерея</a>
         </div>
     </div>
 </header>
 
-
+<main>
 <div class="biglabel">
     <p>ДЛЯ БИЗНЕСА</p>
 </div>
 <div class="aboutus">
-    <p>Custom Apple сможет сделать уникальный подарок с логотипом вашей компании или бренда в крупных партиях за <br> минимальное количество времени. AirPods с дизайном вашей организации помогут внедрить новые системы <br> мотивации для сотрудников, сделать качественный подарок партнёру или крупному клиенту, а также ещё больше <br> повысить лояльность, статус и закрепить приятную ассоциацию. <br><br>
+    <p><span style="color: #F00;">Custom Apple</span> сможет сделать уникальный подарок с логотипом <span style="color: #F00;">вашей компании или бренда</span> в крупных партиях за <br> минимальное количество времени. AirPods с дизайном вашей организации помогут внедрить новые системы <br> мотивации для сотрудников, сделать качественный подарок партнёру или крупному клиенту, а также ещё больше <br> повысить лояльность, статус и закрепить <span style="color: #F00;">приятную ассоциацию</span>. <br><br>
 
-        В день мы красим более 100 наушников, так что больших заказов мы не боимся.</p>
-
+        В день мы красим более <span style="color: #F00;">100 наушников</span>, так что больших заказов мы не боимся.</p>
 </div>
+
+    <div class="kartinka">
+        <img src="img/123123.png" alt="img"/>
+    </div>
+
 <div class="sendform">
     <div class="input-container">
         <input class="inputname" type="text" id="my-input">
@@ -53,8 +57,9 @@
 
 </div>
 <div class="middlebuttondiv">
-    <button class="middlebutton" > Начать сотрудничать</button>
+    <button class="middlebutton" onclick="alert('Заявка отправлена')" > Начать сотрудничать</button>
 </div>
+</main>
 <footer>
     <div class="footerdiv">
         <div class="footermain">

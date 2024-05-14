@@ -13,6 +13,11 @@
     align-items: center;
     justify-content: center;
     color: white;
+    background-image: url("../img/bacl.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0%;
+    overflow: hidden;
 }
 .logomake{
     font-size: 72px;
@@ -83,4 +88,7 @@ height: 253px;
     font-size: 31px;
     text-align: center;
 
+}
+#largee{
+        width: 50%
 }

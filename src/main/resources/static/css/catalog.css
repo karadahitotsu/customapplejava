@@ -1,6 +1,6 @@
 .products{
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
     width: 70vw;
     justify-content: center;
     margin-left: 15vw;
@@ -9,7 +9,7 @@
 }
 .productimages{
     position: relative;
-    width: 20vw;
+    width: 30vh;
     height: 30vh;
 }
 .productflex{
@@ -56,6 +56,9 @@
 .product{
     margin-left: 3vw;
     margin-top: 3vh;
+    display: flex;
+        flex-direction: column;
+        align-items: center;
 }
 .productbuy{
     background-color: black;

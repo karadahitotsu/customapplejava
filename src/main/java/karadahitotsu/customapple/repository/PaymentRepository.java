@@ -1,4 +1,4 @@
-package karadahitotsu.customapple.Repository;
+package karadahitotsu.customapple.repository;
 
 import karadahitotsu.customapple.entity.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -11,6 +11,7 @@ public class Cart {
     @ManyToOne
     @JoinColumn(name = "userid") // указывает на колонку, которая будет использоваться для связи
     private Users userid;
+    private Integer count;
 
     @ManyToOne
     @JoinColumn(name = "productid") // указывает на колонку, которая будет использоваться для связи
@@ -38,5 +39,13 @@ public class Cart {
 
     public void setProductid(Products productid) {
         this.productid = productid;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

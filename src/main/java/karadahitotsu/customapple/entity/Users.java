@@ -12,6 +12,7 @@ public class Users {
     private Long id;
     private String login;
     private String password;
+    private String photo;
 
     public Long getId() {
         return id;
@@ -35,5 +36,13 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

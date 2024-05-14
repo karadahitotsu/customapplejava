@@ -40,6 +40,7 @@ a {
 
 }
 .footerdiv{
+
 display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,3 +59,14 @@ color: rgb(247, 247, 113);
 .whatsuppa{
 color: rgb(60, 240, 105);
 }
+body{
+min-height: 100vh;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1;
+}
+

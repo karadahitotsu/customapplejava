@@ -135,6 +135,8 @@ public class MainController {
     @GetMapping("/profile")
     public String profilePage(@RequestParam(name="id",required = true)Long userid,Model model){
         model.addAttribute("login",usersRepository.getReferenceById(userid).getLogin());
+        model.addAttribute("image",usersRepository.getReferenceById(userid).getPhoto());
+        System.out.println(usersRepository.getReferenceById(userid).getPhoto());
         return "profile";
     }
     @GetMapping("/registration")
@@ -148,7 +150,7 @@ public class MainController {
         int summa = 0;
         for (int i = 0;i<cart.size();i++){
             Products products = cart.get(i).getProductid();
-            summa+=products.getPrice();
+            summa+=products.getPrice()*cart.get(i).getCount();
         }
         model.addAttribute("summa",summa);
         return "payment";

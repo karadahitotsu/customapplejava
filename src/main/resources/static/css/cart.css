@@ -5,7 +5,7 @@
 }
 .cart-product {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; /* Разделение на четыре колонки */
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* Разделение на четыре колонки */
     grid-gap: 10px; /* Пространство между элементами */
     padding: 10px;
     border: 1px solid #ccc; /* Границы для разделения */
