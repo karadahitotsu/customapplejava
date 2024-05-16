@@ -72,4 +72,8 @@ body {
 main {
   flex: 1;
 }
+body{
+
+overflow-x:hidden
+}
 
