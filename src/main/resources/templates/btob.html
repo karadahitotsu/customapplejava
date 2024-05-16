@@ -57,7 +57,7 @@
 
 </div>
 <div class="middlebuttondiv">
-    <button class="middlebutton" onclick="alert('Заявка отправлена')" > Начать сотрудничать</button>
+    <button class="middlebutton" onclick="Make()" > Начать сотрудничать</button>
 </div>
 </main>
 <footer>
@@ -85,7 +85,28 @@
 
 
 </footer>
+<script>
+    function Make(){
 
+
+    var name = document.getElementById("my-input").value;
+    var phone = document.getElementById("telephoneinput").value;
+
+    const data = {
+    "name":name,
+    "phone":phone
+    }
+    const jsonData = JSON.stringify(data);
+    console.log(jsonData)
+     fetch('/api/btob', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: jsonData
+        })
+        alert("Заявка отправлена")
+    }
+
+</script>
 <script th:src="@{/js/iflogin.js}"></script>
 <script th:src="@{/js/telephone.js}"></script>
 

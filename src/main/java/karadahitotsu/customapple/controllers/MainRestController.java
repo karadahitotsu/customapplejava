@@ -1,13 +1,7 @@
 package karadahitotsu.customapple.controllers;
 
-import karadahitotsu.customapple.repository.PaymentRepository;
-import karadahitotsu.customapple.entity.Cart;
-import karadahitotsu.customapple.entity.Payment;
-import karadahitotsu.customapple.entity.Products;
-import karadahitotsu.customapple.entity.Users;
-import karadahitotsu.customapple.repository.CartRepository;
-import karadahitotsu.customapple.repository.ProductsRepository;
-import karadahitotsu.customapple.repository.UsersRepository;
+import karadahitotsu.customapple.entity.*;
+import karadahitotsu.customapple.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,12 +30,29 @@ public class MainRestController {
     ProductsRepository productsRepository;
     @Autowired
     PaymentRepository paymentRepository;
+    @Autowired
+    MakeRepository makeRepository;
+    @Autowired
+    BtoBRepository btoBRepository;
     @PostMapping("/api/createuser")
     public String createUser(@RequestBody Users user) {
         System.out.println(user.getLogin());
         user.setPhoto("default.png");
         usersRepository.save(user);
         return "user";
+
+    }
+    @PostMapping("/api/make")
+    public void makerequest(@RequestBody MakeRequest makeRequest){
+
+        makeRepository.save(makeRequest);
+
+
+    }
+    @PostMapping("/api/btob")
+    public void btobrequest(@RequestBody BToBRequest bToBRequest){
+        btoBRepository.save(bToBRequest);
+
 
     }
     @PostMapping("/api/cart/add")
