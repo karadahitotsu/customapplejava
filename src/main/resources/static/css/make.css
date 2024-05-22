@@ -6,6 +6,7 @@
 }
 .makeblackdiv{
     background-color: black;
+    text-align: center;
     display: flex;
     flex-direction: column;
     width: 100vw;
@@ -91,4 +92,7 @@ height: 253px;
 }
 #largee{
         width: 50%
+}
+@media (max-width: 980px) {
+
 }
